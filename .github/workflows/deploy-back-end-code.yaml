@@ -12,8 +12,24 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
 
-      - name: Install Dependencies
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
+
+      - name: Install aws-cdk globally
+        run: npm i -g aws-cdk
 
       - name: Deploy Lambda and Api Gateway Stack
         env:
