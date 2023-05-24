@@ -7,7 +7,7 @@ let client;
 let connectedClient;
 let collection;
 
-exports.handler = async (event) => {
+exports.handler = async function (event, context) {
     try {
         if (!uri) {
             const ssm = new SSM();
@@ -36,7 +36,7 @@ exports.handler = async (event) => {
         const car = await collection.findOne(query, options);
         return {
             statusCode: 200,
-            body: car
+            body: JSON.stringify(car)
         };
     }
     catch (err) {
@@ -44,5 +44,9 @@ exports.handler = async (event) => {
             connectedClient.close();
         }
         console.error('Caught an error! - ', err);
+        return {
+            statusCode: 404,
+            body: 'Error! ' + err
+        };
     }
 };
