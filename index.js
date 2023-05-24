@@ -35,7 +35,7 @@ exports.handler = async function (event, context) {
         };
         const car = await collection.findOne(query, options);
         return {
-            statusCode: 201,
+            statusCode: 200,
             body: JSON.stringify(car)
         };
     }
