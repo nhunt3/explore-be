@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Aws Cdk
-        run: npm i aws-cdk
+        run: npm i -g aws-cdk
 
       - name: Deploy Lambda and Api Gateway Stack
         env:
