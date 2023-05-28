@@ -36,6 +36,9 @@ exports.handler = async function (event, context) {
         const car = await collection.findOne(query, options);
         return {
             statusCode: 200,
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            },
             body: JSON.stringify(car)
         };
     }

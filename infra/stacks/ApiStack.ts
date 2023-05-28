@@ -9,7 +9,11 @@ interface ApiStackProps extends StackProps {
 export class ApiStack extends Stack {
     constructor(scope: Construct, id: string, props: ApiStackProps) {
         super(scope, id, props);
-
+        // {
+        //     defaultCorsPreflightOptions: {
+        //         allowOrigins: apigw.Cors.ALL_ORIGINS
+        //     }
+        // }
         const api = new RestApi(this, 'ExploreApi');
         const spaceResource = api.root.addResource('explore');
         spaceResource.addMethod('GET', props.exploreLambdaIntegration);
