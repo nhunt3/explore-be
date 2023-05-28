@@ -6,6 +6,8 @@ const port = 3001;
 
 app.get('/', async (req, res) => {
     const resp = await index.handler();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Content-Type", "application/json");
     res.send(resp.body);
 });
 

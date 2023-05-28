@@ -29,17 +29,18 @@ exports.handler = async function (event, context) {
             collection = connectedClient.db("explore").collection("main");
         }
 
-        const query = { make: "toyota" };
+        const query = { city: "Atlanta" };
         const options = {
-            projection: { _id: 0, make: 1, model: 1 },
+            projection: { _id: 0 },
         };
-        const car = await collection.findOne(query, options);
+        const city = await collection.findOne(query, options);
         return {
             statusCode: 200,
             headers: {
-                "Access-Control-Allow-Origin": "*"
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify(car)
+            body: JSON.stringify(city)
         };
     }
     catch (err) {
@@ -49,6 +50,9 @@ exports.handler = async function (event, context) {
         console.error('Caught an error! - ', err);
         return {
             statusCode: 404,
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            },
             body: 'Error! ' + err
         };
     }
